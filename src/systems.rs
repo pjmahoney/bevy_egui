@@ -493,7 +493,7 @@ pub fn update_contexts_system(
 /// Marks frame start for Egui.
 pub fn begin_frame_system(mut contexts: Query<(&mut EguiContext, &mut EguiInput)>) {
     for (mut ctx, mut egui_input) in contexts.iter_mut() {
-        ctx.get_mut().begin_frame(egui_input.take());
+        ctx.get_mut().begin_pass(egui_input.take());
     }
 }
 
@@ -513,7 +513,7 @@ pub fn process_output_system(
 
     for mut context in contexts.iter_mut() {
         let ctx = context.ctx.get_mut();
-        let full_output = ctx.end_frame();
+        let full_output = ctx.end_pass();
         let egui::FullOutput {
             platform_output,
             shapes,
